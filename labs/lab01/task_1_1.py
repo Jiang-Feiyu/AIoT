@@ -33,7 +33,15 @@ class task_1_1:
         s_t = None
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        #
+        duration = 2  # Duration of the signal in seconds
+        frequency = 2  # Frequency in Hz (from -4π*x → frequency = 2 Hz)
+        phase = np.pi / 3  # Phase offset in radians
+
+        # Generate timestamps
+        t = np.arange(-duration / 2, duration / 2, 1 / self.fs)
+
+        # Generate the signal
+        s_t = np.cos(-4 * np.pi * t + phase)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         s_t = np.array(s_t).astype(float)
         t = np.array(t).astype(float)
@@ -62,7 +70,24 @@ class task_1_1:
         s_t = None
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        #
+        # Calculate total time range (-1 to 1)
+        t = np.linspace(-1, 1, self.fs * 2)  # fs * 2 ensures 2 seconds of data (fs samples per second)
+
+        # Round time array to 2 decimal places to match expected output
+        t = np.round(t, 2)
+
+        # Initialize the signal array `s_t` with zeros
+        s_t = np.zeros_like(t)
+
+        # Define the piecewise function for p(t)
+        # p(t) = 1 for -0.7 < t <= 0.3
+        s_t[(t > -0.7) & (t <= 0.3)] = 1
+
+        # p(t) = 5t - 1.5 for 0.3 < t <= 0.5
+        s_t[(t > 0.3) & (t <= 0.5)] = 5 * t[(t > 0.3) & (t <= 0.5)] - 1.5
+
+        # p(t) = -5t + 3.5 for 0.5 < t <= 0.7
+        s_t[(t > 0.5) & (t <= 0.7)] = -5 * t[(t > 0.5) & (t <= 0.7)] + 3.5
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         s_t = np.array(s_t).astype(float)
         t = np.array(t).astype(float)
@@ -91,7 +116,18 @@ class task_1_1:
         s_t = None
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        #
+        # Generate time array
+        t = np.linspace(-1, 1, self.fs * 2)  # Generate 2 seconds of data with fs samples per second
+        t = np.round(t, 2)
+
+        # Real part: cos(4 * pi * x)
+        real_part = np.cos(4 * np.pi * t)
+
+        # Imaginary part: cos(4 * pi * x - 1)
+        imaginary_part = np.cos(4 * np.pi * t - (1/2) * np.pi)
+
+        # Combine real and imaginary parts to form a complex signal
+        s_t = real_part + 1j * imaginary_part
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         s_t = np.array(s_t).astype(np.complex64)
         t = np.array(t).astype(float)
