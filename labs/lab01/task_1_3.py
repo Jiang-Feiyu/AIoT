@@ -46,7 +46,17 @@ class task_1_3:
         s_t = None
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # TODO: YOUR CODE HERE
+        # Generate the time array
+        t = np.linspace(0, 2, int(self.fs * 2), endpoint=False)
+
+        # Generate the message signal m(t) = cos(2 * pi * fm * t)
+        m_t = np.cos(2 * np.pi * fm * t)
+
+        # Generate the carrier signal c(t) = cos(2 * pi * fc * t + phase)
+        c_t = np.cos(2 * np.pi * fc * t + phase)
+
+        # Generate the AM signal s(t) = Ac * (1 + mu * m(t)) * c(t)
+        s_t = Ac * (1 + mu * m_t) * c_t
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         # Ensure all arrays are of type float
