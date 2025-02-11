@@ -1,2 +1,5 @@
 # Ignore all zip files
 *.zip
+
+# Ignore all __pycache__ folders recursively
+__pycache__/
