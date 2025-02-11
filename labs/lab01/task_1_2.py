@@ -43,7 +43,17 @@ class task_1_2:
         s_t = None
 
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # todo: YOUR CODE HERE
+        # Generate the time array
+        t = np.linspace(0, duration, int(self.fs * duration), endpoint=False)
+        
+        # Calculate the frequency at each time point using the linear chirp formula
+        f_t = start_freq + (end_freq - start_freq) / period * t
+        
+        # Calculate the phase of the signal (integral of frequency over time)
+        phase = 2 * np.pi * (start_freq * t + ((end_freq - start_freq) / (2 * period)) * t**2) + init_phase
+
+        # Generate the signal using the cosine function
+        s_t = amplitude * np.cos(phase)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         
@@ -84,7 +94,17 @@ class task_1_2:
         s_t = None
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # todo: YOUR CODE HERE
+        # Generate the time array
+        t = np.linspace(0, duration, int(self.fs * duration), endpoint=False)
+        
+        # Calculate the frequency at each time point using the quadratic chirp formula
+        f_t = start_freq + (end_freq - start_freq) / (period ** 2) * (t ** 2)
+        
+        # Calculate the phase of the signal (integral of frequency over time)
+        phase = 2 * np.pi * (start_freq * t + ((end_freq - start_freq) / (3 * period ** 2)) * (t ** 3)) + init_phase
+
+        # Generate the signal using the cosine function
+        s_t = amplitude * np.cos(phase)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         t = np.array(t).astype(float)
