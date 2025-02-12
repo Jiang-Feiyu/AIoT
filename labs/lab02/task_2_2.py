@@ -50,6 +50,22 @@ class task_2_2:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        # Perform FFT on the signal
+        fft_result = np.fft.fft(s_t)
+        fft_magnitude = np.abs(fft_result)  # Get the magnitude of the FFT
+        
+        # Compute the frequency axis
+        N = len(s_t)  # Length of the signal
+        freq_axis = np.fft.fftfreq(N, d=1/fs)
+        
+        # Extract positive frequency components
+        positive_freq_idx = freq_axis >= 0
+        fft_magnitude = fft_magnitude[positive_freq_idx]
+        freq_axis = freq_axis[positive_freq_idx]
+        
+        # Find the indices of the top 3 frequencies
+        top_indices = np.argsort(fft_magnitude)[-3:]  # Get indices of 3 highest magnitudes
+        freq = freq_axis[top_indices]  # Get the corresponding frequencies
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         freq = np.sort(freq)[::-1]
@@ -72,9 +88,34 @@ class task_2_2:
         fs = self.chirp_data["fs"] # sampling frequency
         
         bw = 0
-        
+        #  chirp signal. The sampling rate is 16000 Hz. In this task, your task is to return the bandwidth of the chirp signal.
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        # Perform FFT to compute frequency spectrum
+        fft_result = np.fft.fft(s_t)
+        fft_magnitude = np.abs(fft_result)  # Get magnitude of FFT
+        freqs = np.fft.fftfreq(len(s_t), 1 / fs)  # Compute frequency bins
+
+        # Consider only the positive half of the spectrum
+        positive_freqs = freqs[freqs >= 0]
+        positive_magnitude = fft_magnitude[freqs >= 0]
+
+        # Normalize the magnitude spectrum
+        normalized_magnitude = positive_magnitude / np.max(positive_magnitude)
+
+        # Define a threshold to determine the significant frequency range
+        threshold = 0.01  # 1% of the max magnitude
+
+        # Find indices where the magnitude exceeds the threshold
+        significant_indices = np.where(normalized_magnitude >= threshold)[0]
+
+        # Compute bandwidth as the frequency range of significant components
+        if len(significant_indices) > 0:
+            f_min = positive_freqs[significant_indices[0]]  # Minimum significant frequency
+            f_max = positive_freqs[significant_indices[-1]]  # Maximum significant frequency
+            bw = f_max - f_min  # Bandwidth
+        else:
+            bw = 0  # If no significant frequencies, bandwidth is 0
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         return bw 
@@ -98,8 +139,37 @@ class task_2_2:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        # Detect peaks in the ECG signal
+        # Typical heart rate range in Hz: 60 BPM to 90 BPM (1 Hz to 1.5 Hz)
+        min_hr_hz = 60 / 60  # 1 Hz
+        max_hr_hz = 90 / 60  # 1.5 Hz
+
+        # Minimum and maximum distance between peaks (in samples)
+        min_distance = int(fs / max_hr_hz)  # Minimum distance between peaks
+        max_distance = int(fs / min_hr_hz)  # Maximum distance between peaks
+
+        # Find peaks in the ECG signal
+        peaks, _ = find_peaks(s_t, distance=min_distance)
+
+        # Calculate the intervals between consecutive peaks (in seconds)
+        peak_intervals = np.diff(peaks) / fs  # Time differences between peaks
+
+        # Compute the average heart rate (in Hz)
+        avg_hr_hz = 1 / np.mean(peak_intervals) if len(peak_intervals) > 0 else 0
+
+        # Convert to BPM (Beats Per Minute)
+        hr = avg_hr_hz * 60  # Convert Hz to BPM
+
+        # Ensure the HR is a float64
+        hr = np.float64(hr)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
+        # A clip of ECG (electrocardiogram) signal. The sampling rate is 100 Hz.
+        # Your task is to uncover the heart rate from ECG. Heartbeat is a periodic event, and the heart rate is the frequency that the heart beats. The heart rate of this participant is between 60 - 90 BPM
+        # (Beat Per Second). You should return the heart rate in BPM.
+
+        # you are recommended to only focus on those peaks whose corresponding fre- quencies lie in the reasonable range of your task, i.e. heart rate range.
+
         # Make sure hr is a float64
         if isinstance(hr, np.ndarray):
             if hr.size > 1:
