@@ -48,6 +48,9 @@ class task_2_3:
 
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: Set the appropriate fs and N
+        # Setting the appropriate sampling rate (fs) and number of samples (N)
+        fs = 2000  # Sampling rate, must be greater than 2 * max frequency (Nyquist rate)
+        N = 200000  # Number of samples, chosen to give sufficient frequency resolution
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         t = np.arange(-N / (2 * fs), N / (2 * fs),  1/fs)
@@ -57,6 +60,18 @@ class task_2_3:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: Compute the FFT and get the frequency list
+        # Compute the FFT and get the frequency list
+        # Perform FFT
+        fft_result = np.fft.fft(s_t)
+        fft_freq = np.fft.fftfreq(N, d=1/fs)  # Generate corresponding frequencies
+
+        # Only consider positive frequencies and their corresponding magnitudes
+        positive_freqs = fft_freq[:N // 2]
+        positive_magnitudes = np.abs(fft_result[:N // 2])
+
+        # Find the top 3 frequencies with the highest magnitudes
+        top_indices = np.argsort(positive_magnitudes)[-3:]  # Get indices of top 3 peaks
+        f = positive_freqs[top_indices]  # Extract the corresponding frequencies
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         fs = float(fs)
