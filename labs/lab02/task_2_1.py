@@ -42,6 +42,17 @@ class task_2_1:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        s_t = 2.025 * np.cos(2 * np.pi * 20.25 * self.t + np.pi / 3)  # Generate the pure tone signal
+        
+        # Perform FFT on the signal
+        fft_result = np.fft.fft(s_t)  # Compute the FFT of the signal
+        fft_magnitude = np.abs(fft_result)  # Get the magnitude of the FFT
+        
+        # Extract the positive frequency components (half the spectrum)
+        s_f = fft_magnitude[:self.N // 2]
+        
+        # Compute the frequency axis
+        s_f_freq = np.fft.fftfreq(self.N, d=1/self.fs)[:self.N // 2]
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
 
         
