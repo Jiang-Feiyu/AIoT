@@ -153,25 +153,27 @@ class task_2_4:
         aoas = {}
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
-        # 1. 获取目标的索引及距离
+        # 1. Get target indices and distances
         from scipy.signal import find_peaks
-        
-        # 找到距离范围内的目标距离对应的范围单元索引
+
+        # Find indices corresponding to target distances
         distances, range_fft, range_bins = self.estimate_distance()
         target_indices = [np.abs(range_bins - d).argmin() for d in distances]
 
-        # 2. 使用 2048 点 FFT 计算 AoA
-        num_fft_points = 2048  # 2048 点 FFT
+        # 2. Calculate AoA using phase difference
         for idx, distance in zip(target_indices, distances):
-            # 提取目标距离对应的信号
-            target_signal = range_fft[:, idx]  # 获取目标对应天线信号
-            
-            # 计算目标信号的相位差
-            angle_fft = np.fft.fft(target_signal, num_fft_points)
-            angle_idx = np.argmax(np.abs(angle_fft))  # 找到最大点对应的索引
-            
-            # 转换为 AoA (以度为单位)
-            aoa = np.arcsin(angle_idx / num_fft_points) * 180 / np.pi
-            aoas[round(distance, 1)] = round(aoa, 1)  # 保留一位小数
+            # Extract signals for the target distance
+            target_signal = range_fft[:, idx]
+    
+            # Calculate phase difference between antenna signals
+            phase_diff = np.angle(target_signal[1]) - np.angle(target_signal[0])
+    
+            # Ensure phase difference is in [-π, π]
+            phase_diff = np.mod(phase_diff + np.pi, 2 * np.pi) - np.pi
+    
+            # Calculate AoA using the formula: sin θ = cΔφ/(2πfₒs)
+            # Since s = λ/2 and λ = c/fₒ, this simplifies to: sin θ = Δφ/π
+            aoa = np.arcsin(phase_diff / np.pi) * 180 / np.pi
+            aoas[round(distance, 1)] = round(aoa, 1)  # Keep one decimal place
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         return aoas
