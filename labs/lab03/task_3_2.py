@@ -46,6 +46,14 @@ class task_3_2:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        # 计算自相关函数
+        acf = np.correlate(s_t, s_t, 'full')[len(s_t)-1:]
+        # 找出除0之外的第一个峰值
+        peaks, _ = find_peaks(acf)
+        if len(peaks) > 0:
+            first_peak = peaks[0]
+            # 将采样点转换为频率再转换为BPM
+            br = (fs / first_peak) * 60
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         # Make sure br is a float64
@@ -86,6 +94,23 @@ class task_3_2:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        window_length = 3  # 选择3秒的窗口长度
+        window_step = 1.0  # 1秒的时间分辨率
+
+        window_samples = int(window_length * fs)
+        step_samples = int(window_step * fs)
+        b_t = []
+
+        for i in range(0, len(s_t) - window_samples, step_samples):
+            window = s_t[i:i + window_samples]
+            # 计算窗口内的自相关函数
+            acf = np.correlate(window, window, 'full')[window_samples-1:]
+            peaks, _ = find_peaks(acf)
+            if len(peaks) > 0:
+                first_peak = peaks[0]
+                br = (fs / first_peak) * 60
+                b_t.append(br)
+        b_t = np.array(b_t)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         # Make sure br is a float64
@@ -117,6 +142,20 @@ class task_3_2:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        window_samples = int(window_length * fs)
+        step_samples = int(window_step * fs)
+        h_t = []
+
+        for i in range(0, len(s_t) - window_samples, step_samples):
+            window = s_t[i:i + window_samples]
+            # 计算窗口内的自相关函数
+            acf = np.correlate(window, window, 'full')[window_samples-1:]
+            peaks, _ = find_peaks(acf)
+            if len(peaks) > 0:
+                first_peak = peaks[0]
+                hr = (fs / first_peak) * 60
+                h_t.append(hr)
+        h_t = np.array(h_t)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         # Make sure hr is a float64
@@ -151,6 +190,25 @@ class task_3_2:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        # 频率分辨率0.5Hz要求窗口长度为2秒
+        window_length = 2.0
+        # 时间分辨率0.1s
+        window_step = 0.1
+
+        window_samples = int(window_length * fs)
+        step_samples = int(window_step * fs)
+        h_t = []
+
+        for i in range(0, len(s_t) - window_samples, step_samples):
+            window = s_t[i:i + window_samples]
+            # 计算窗口内的自相关函数
+            acf = np.correlate(window, window, 'full')[window_samples-1:]
+            peaks, _ = find_peaks(acf)
+            if len(peaks) > 0:
+               first_peak = peaks[0]
+               hr = (fs / first_peak) * 60
+               h_t.append(hr)
+        h_t = np.array(h_t)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         
         # Make sure hr is a float64

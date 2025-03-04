@@ -51,6 +51,23 @@ class task_3_3:
         pcc = None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: Implement PCC using np.correlate:
+        # 计算信号的均值
+        s1_mean = np.mean(s1)
+        s2_mean = np.mean(s2)
+
+        # 去均值
+        s1_centered = s1 - s1_mean
+        s2_centered = s2 - s2_mean
+
+        # 计算分子（使用correlate）
+        numerator = np.correlate(s1_centered, s2_centered, mode='full')[len(s1_centered)-1]
+
+        # 计算分母（两个信号的标准差乘积）
+        denominator = np.sqrt(np.correlate(s1_centered, s1_centered, mode='full')[len(s1_centered)-1] * 
+                     np.correlate(s2_centered, s2_centered, mode='full')[len(s2_centered)-1])
+
+        # 计算PCC
+        pcc = numerator / denominator
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         pcc = np.float64(pcc)
         return pcc
@@ -100,6 +117,10 @@ class task_3_3:
         pcc, res = None, None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: Use get_pcc to compute PCC, set res True if PCC > 0
+        # 使用get_pcc计算温度传感器信号的相关性
+        pcc = self.get_pcc(t1, t2)
+        # 如果PCC > 0，说明温度正相关，传感器工作正常
+        res = pcc > 0
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         pcc = np.float64(pcc)
         res = bool(res)
@@ -129,6 +150,14 @@ class task_3_3:
         delay, res = None, None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: 
+        # 计算互相关来找出信号延迟
+        corr = np.correlate(s1, s2, mode='full')
+        # 找出最大相关性的位置
+        max_idx = np.argmax(corr)
+        # 计算延迟（采样率为10Hz）
+        delay = abs(max_idx - (len(s1) - 1)) / 10.0
+        # 如果延迟小于阈值0.1秒，则可以触发警报
+        res = delay <= 0.1
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         delay = np.abs(delay).astype(np.float64)
         res = bool(res)
@@ -154,6 +183,10 @@ class task_3_3:
         start_idx = None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: 
+        # 计算滑动窗口的相关性
+        correlation = np.correlate(s, p, mode='valid')
+        # 找出相关性最强的位置
+        start_idx = np.argmax(correlation)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         start_idx = int(start_idx)
         return start_idx
