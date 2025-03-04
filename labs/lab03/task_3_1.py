@@ -38,6 +38,14 @@ class task_3_1:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        # Time vector
+        t = np.arange(N) / self.fs
+        # Generate the pure tone signal
+        s_t = 2.5 * np.cos(2 * np.pi * 12.3 * t + np.pi/3)
+        # Calculate ACF using correlation
+        acf = np.correlate(s_t, s_t, mode='full')[N-1:]
+        # Normalize ACF
+        acf = acf / acf[0]
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
 
         
@@ -73,6 +81,15 @@ class task_3_1:
         
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO:
+        # Time vector
+        t = np.arange(N) / self.fs
+        # Generate pulse signal according to conditions
+        s_t[(t >= 0.3) & (t < 0.9)] = 3
+        s_t[(t >= 1.2) & (t < 1.8)] = 2
+        # Calculate ACF using correlation
+        acf = np.correlate(s_t, s_t, mode='full')[N-1:]
+        # Normalize ACF
+        acf = acf / acf[0]
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
 
         
