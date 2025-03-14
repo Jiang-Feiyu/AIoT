@@ -53,8 +53,8 @@ class task_4_1:
         filtered = None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: Implement the high-pass filter using the butter and sosfiltfilt functions
-        # sos = ...
-        # filtered = 
+        sos = butter(order, cutoff, btype='high', fs=fs, output='sos')
+        filtered = sosfiltfilt(sos, data)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         filtered = np.array(filtered, dtype=np.float64)
         return filtered
@@ -80,8 +80,8 @@ class task_4_1:
         filtered = None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: Implement the low-pass filter using the butter and sosfiltfilt functions
-        # sos = ...
-        # filtered = ...
+        sos = butter(order, cutoff, btype='low', fs=fs, output='sos')
+        filtered = sosfiltfilt(sos, data)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         filtered = np.array(filtered, dtype=np.float64)
         return filtered
@@ -107,8 +107,8 @@ class task_4_1:
         filtered, cutoff1, cutoff2 = None, None, None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
         # TODO: Set the cutoff frequencies for the low-pass and high-pass filters
-        # cutoff1 = ...
-        # cutoff2 = ...
+        cutoff1 = 10  # 高通滤波器的截止频率（低频通道截止）
+        cutoff2 = 20  # 低通滤波器的截止频率（高频通道截止）
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         high_passed = self.apply_highpass(cutoff=cutoff1, data=data, fs=fs, order=order)
         filtered = self.apply_lowpass(cutoff=cutoff2, data=high_passed, fs=fs, order=order)
