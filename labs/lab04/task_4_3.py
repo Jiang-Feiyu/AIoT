@@ -50,7 +50,26 @@ class task_4_3:
         """
         frequency = []
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # TODO:
+        # Calculate the FFT of the signal
+        N = len(s)
+        fft_vals = np.abs(np.fft.rfft(s))
+        fft_freqs = np.fft.rfftfreq(N, 1/fs)
+    
+        # Find the indices of the two highest magnitude frequencies
+        # Ignore DC component (index 0)
+        if len(fft_vals) > 1:
+            fft_vals_no_dc = fft_vals[1:]
+            freq_indices = np.argsort(fft_vals_no_dc)[-2:][::-1] + 1  # +1 to account for ignored DC
+        
+        # If we only have one frequency (or the signal is all zeros)
+            if len(freq_indices) == 1 or fft_vals[freq_indices[1]] < 1e-10:
+                frequency = [fft_freqs[freq_indices[0]], fft_freqs[freq_indices[0]]]
+            else:
+                # Get the actual frequencies and sort in ascending order
+                freqs = [fft_freqs[i] for i in freq_indices]
+                frequency = sorted(freqs)
+        else:
+            frequency = [0.0, 0.0]  # Default if signal is too short
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         frequency = np.array(frequency, dtype=np.float64)
         return frequency

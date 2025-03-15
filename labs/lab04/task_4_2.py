@@ -63,8 +63,35 @@ class task_4_2:
         """
         filtered = None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # TODO: 
-        #
+        from scipy import signal
+        import numpy as np
+        from hampel import hampel
+    
+        # 首先进行快速傅里叶变换分析信号频谱
+        n = len(self.data1)
+        fft_result = np.fft.rfft(self.data1)
+        freqs = np.fft.rfftfreq(n, 1/self.fs1)
+    
+        # 应用理想低通滤波器（截断FFT）
+        # 只保留0-2Hz之间的频率分量
+        cutoff_freq = 2.0  # Hz
+        fft_result[freqs > cutoff_freq] = 0
+    
+        # 反变换回时域
+        initial_filtered = np.fft.irfft(fft_result, n)
+    
+        # 再应用hampel滤波器去除剩余的异常值
+        hampel_result = hampel(initial_filtered, window_size=11, n_sigma=3.0)
+        hampel_filtered = hampel_result.filtered_data
+    
+        # 应用Savitzky-Golay滤波器进行最终平滑
+        window_length = 21  # 较大的窗口尺寸
+        poly_order = 2  # 较低的多项式阶数，更平滑
+        filtered = signal.savgol_filter(hampel_filtered, window_length, poly_order)
+    
+        # 最后应用一个双向巴特沃斯滤波器
+        b, a = signal.butter(3, 0.05, 'low')
+        filtered = signal.filtfilt(b, a, filtered)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         filtered = np.array(filtered, dtype=np.float64)
         return filtered
@@ -102,8 +129,31 @@ class task_4_2:
         """
         filtered = None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # TODO: 
-        # 
+        # Since the sampling rate is 20Hz (from the task description)
+        # and we need good noise reduction with low RMSE, let's use a Butterworth filter
+    
+        # First, define filter parameters
+        order = 4  # Filter order
+        cutoff_freq = 3.0  # Cutoff frequency in Hz
+        nyquist = 0.5 * self.fs2  # Nyquist frequency
+        normal_cutoff = cutoff_freq / nyquist  # Normalized cutoff frequency
+    
+        # Design the Butterworth filter
+        from scipy import signal
+        b, a = signal.butter(order, normal_cutoff, btype='low', analog=False)
+    
+        # Apply the filter using filtfilt for zero-phase filtering (eliminates phase delay)
+        filtered = signal.filtfilt(b, a, self.data2)
+    
+        # Check if the filtering meets the derivative variation requirement
+        # If not, we might need additional smoothing
+        dv_test = self._compute_derivative_variation(filtered)
+    
+        if dv_test > 0.1:
+            # Apply additional smoothing with a Savitzky-Golay filter
+            window_length = 11  # Must be odd
+            polyorder = 2  # Polynomial order
+            filtered = signal.savgol_filter(filtered, window_length, polyorder)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         filtered = np.array(filtered, dtype=np.float64)
         return filtered
