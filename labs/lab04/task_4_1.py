@@ -106,12 +106,9 @@ class task_4_1:
         
         filtered, cutoff1, cutoff2 = None, None, None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # TODO: Set the cutoff frequencies for the low-pass and high-pass filters
-        cutoff1 = 10  # 高通滤波器的截止频率（低频通道截止）
-        cutoff2 = 20  # 低通滤波器的截止频率（高频通道截止）
+        cutoff1 = 20    # 高通滤波器截止频率 (10Hz)
+        cutoff2 = 10   # 低通滤波器截止频率 (20Hz)
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         high_passed = self.apply_highpass(cutoff=cutoff1, data=data, fs=fs, order=order)
         filtered = self.apply_lowpass(cutoff=cutoff2, data=high_passed, fs=fs, order=order)
         return filtered, cutoff1, cutoff2
-
-
