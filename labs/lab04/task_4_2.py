@@ -125,35 +125,27 @@ class task_4_2:
         >>> dv = test._compute_derivative_variation(filtered)
         >>> dv < 0.1
         True
-        True
         """
         filtered = None
         # >>>>>>>>>>>>>>> YOUR CODE HERE <<<<<<<<<<<<<<<
-        # Since the sampling rate is 20Hz (from the task description)
-        # and we need good noise reduction with low RMSE, let's use a Butterworth filter
-    
-        # First, define filter parameters
-        order = 4  # Filter order
-        cutoff_freq = 3.0  # Cutoff frequency in Hz
-        nyquist = 0.5 * self.fs2  # Nyquist frequency
-        normal_cutoff = cutoff_freq / nyquist  # Normalized cutoff frequency
-    
-        # Design the Butterworth filter
         from scipy import signal
-        b, a = signal.butter(order, normal_cutoff, btype='low', analog=False)
+        import numpy as np
+        # 首先应用中值滤波器去除可能的脉冲噪声
+        median_filtered = signal.medfilt(self.data2, kernel_size=5)
     
-        # Apply the filter using filtfilt for zero-phase filtering (eliminates phase delay)
-        filtered = signal.filtfilt(b, a, self.data2)
+        # 然后使用Savitzky-Golay滤波器进行初步平滑
+        window_length = 31  # 调整窗口长度
+        polyorder = 3       # 多项式阶数
+        savgol_filtered = signal.savgol_filter(median_filtered, window_length, polyorder)
     
-        # Check if the filtering meets the derivative variation requirement
-        # If not, we might need additional smoothing
-        dv_test = self._compute_derivative_variation(filtered)
+        # 最后使用巴特沃斯低通滤波器进行最终平滑
+        nyquist = 0.5 * self.fs2
+        cutoff = 1.0 / nyquist  # 降低截止频率以进一步平滑
+        order = 6               # 增加滤波器阶数以获得更陡峭的响应
     
-        if dv_test > 0.1:
-            # Apply additional smoothing with a Savitzky-Golay filter
-            window_length = 11  # Must be odd
-            polyorder = 2  # Polynomial order
-            filtered = signal.savgol_filter(filtered, window_length, polyorder)
+        b, a = signal.butter(order, cutoff, btype='low')
+        filtered = signal.filtfilt(b, a, savgol_filtered)
+
         # >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<
         filtered = np.array(filtered, dtype=np.float64)
         return filtered
