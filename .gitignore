@@ -4,5 +4,13 @@
 # Ignore all __pycache__ folders recursively
 __pycache__/
 
-# Ignore gp project
+# Ignore gp project and tutorial file
 gp
+tutorial
+Aiot_tutorial/
+
+# ignore all mp4 video file
+**.mp4
+.mp4
+*.mp4
+**/*.mp4
