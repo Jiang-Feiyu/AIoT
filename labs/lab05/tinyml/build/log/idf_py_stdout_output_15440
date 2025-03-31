@@ -1,0 +1,100 @@
+ESP-ROM:esp32c5-eco1-20240726
+Build:Jul 26 2024
+rst:0x1 (POWERON),boot:0x18 (SPI_FAST_FLASH_BOOT)
+SPI mode:DIO, clock div:1
+load:0x40855ab0,len:0x16dc
+load:0x4084c7a0,len:0xce4
+load:0x4084e9a0,len:0x2fa8
+entry 0x4084c7aa
+[0;32mI (23) boot: ESP-IDF v5.4-dirty 2nd stage bootloader[0m
+[0;32mI (23) boot: compile time Mar 30 2025 20:46:38[0m
+[0;32mI (24) boot: chip revision: v0.1[0m
+[0;32mI (24) boot: efuse block revision: v0.1[0m
+[0;32mI (27) boot.esp32c5: SPI Speed      : 80MHz[0m
+[0;32mI (31) boot.esp32c5: SPI Mode       : DIO[0m
+[0;32mI (35) boot.esp32c5: SPI Flash Size : 2MB[0m
+[0;32mI (39) boot: Enabling RNG early entropy source...[0m
+[0;32mI (43) boot: Partition Table:[0m
+[0;32mI (46) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (52) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (59) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (65) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (72) boot: End of partition table[0m
+[0;32mI (75) esp_image: segment 0: paddr=00010020 vaddr=42030020 size=22a90h (141968) map[0m
+[0;32mI (108) esp_image: segment 1: paddr=00032ab8 vaddr=40800000 size=0a6a4h ( 42660) load[0m
+[0;32mI (117) esp_image: segment 2: paddr=0003d164 vaddr=4080a700 size=02eb4h ( 11956) load[0m
+[0;32mI (120) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=24c74h (150644) map[0m
+[0;32mI (147) esp_image: segment 4: paddr=00064c9c vaddr=4080d5b4 size=248bch (149692) load[0m
+[0;32mI (187) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (187) boot: Disabling RNG early entropy source...[0m
+[0;32mI (197) cpu_start: Unicore app[0m
+[0;33mW (205) clk: esp_perip_clk_init() has not been implemented yet[0m
+[0;32mI (211) cpu_start: Pro cpu start user code[0m
+[0;32mI (211) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (211) app_init: Application information:[0m
+[0;32mI (211) app_init: Project name:     tinyml[0m
+[0;32mI (215) app_init: App version:      c1cedeb-dirty[0m
+[0;32mI (219) app_init: Compile time:     Mar 31 2025 16:32:36[0m
+[0;32mI (224) app_init: ELF file SHA256:  cc7017238...[0m
+[0;32mI (229) app_init: ESP-IDF:          v5.4-dirty[0m
+[0;32mI (233) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (237) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (241) efuse_init: Chip rev:         v0.1[0m
+[0;32mI (245) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (251) heap_init: At 40832DF0 len 00029BB0 (166 KiB): RAM[0m
+[0;32mI (256) heap_init: At 4085C9A0 len 00002B60 (10 KiB): RAM[0m
+[0;32mI (261) heap_init: At 50000000 len 00003FE8 (15 KiB): RTCRAM[0m
+[0;32mI (267) spi_flash: detected chip: generic[0m
+[0;32mI (270) spi_flash: flash io: dio[0m
+[0;33mW (273) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (285) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (292) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (298) coexist: coex firmware version: 49a8cdc[0m
+[0;32mI (317) coexist: coexist rom version 78e5c6e42[0m
+[0;32mI (317) main_task: Started on CPU0[0m
+[0;32mI (317) main_task: Calling app_main()[0m
+[0;32mI (317) MAIN: Starting Neural Network...[0m
+Used bytes 3276
+
+[0;32mI (337) MAIN: Sample 0: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (357) MAIN: Sample 1: GT=3, GT_gesture=SITTING, Predicted=3, Predicted_gesture=SITTING[0m
+[0;32mI (377) MAIN: Sample 2: GT=5, GT_gesture=LAYING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (387) MAIN: Sample 3: GT=4, GT_gesture=STANDING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (407) MAIN: Sample 4: GT=2, GT_gesture=WALKING_DOWNSTAIRS, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (427) MAIN: Sample 5: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (447) MAIN: Sample 6: GT=0, GT_gesture=WALKING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (467) MAIN: Sample 7: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (487) MAIN: Sample 8: GT=5, GT_gesture=LAYING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (507) MAIN: Sample 9: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (527) MAIN: Sample 10: GT=4, GT_gesture=STANDING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (547) MAIN: Sample 11: GT=4, GT_gesture=STANDING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (567) MAIN: Sample 12: GT=4, GT_gesture=STANDING, Predicted=4, Predicted_gesture=STANDING[0m
+[0;32mI (577) MAIN: Sample 13: GT=4, GT_gesture=STANDING, Predicted=4, Predicted_gesture=STANDING[0m
+[0;32mI (597) MAIN: Sample 14: GT=3, GT_gesture=SITTING, Predicted=4, Predicted_gesture=STANDING[0m
+[0;32mI (617) MAIN: Sample 15: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (637) MAIN: Sample 16: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (657) MAIN: Sample 17: GT=0, GT_gesture=WALKING, Predicted=0, Predicted_gesture=WALKING[0m
+[0;32mI (677) MAIN: Sample 18: GT=1, GT_gesture=WALKING_UPSTAIRS, Predicted=1, Predicted_gesture=WALKING_UPSTAIRS[0m
+[0;32mI (697) MAIN: Sample 19: GT=3, GT_gesture=SITTING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (717) MAIN: Sample 20: GT=5, GT_gesture=LAYING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (727) MAIN: Sample 21: GT=2, GT_gesture=WALKING_DOWNSTAIRS, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (747) MAIN: Sample 22: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (767) MAIN: Sample 23: GT=2, GT_gesture=WALKING_DOWNSTAIRS, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (787) MAIN: Sample 24: GT=2, GT_gesture=WALKING_DOWNSTAIRS, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (807) MAIN: Sample 25: GT=3, GT_gesture=SITTING, Predicted=4, Predicted_gesture=STANDING[0m
+[0;32mI (827) MAIN: Sample 26: GT=3, GT_gesture=SITTING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (847) MAIN: Sample 27: GT=4, GT_gesture=STANDING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (867) MAIN: Sample 28: GT=4, GT_gesture=STANDING, Predicted=4, Predicted_gesture=STANDING[0m
+[0;32mI (887) MAIN: Sample 29: GT=1, GT_gesture=WALKING_UPSTAIRS, Predicted=1, Predicted_gesture=WALKING_UPSTAIRS[0m
+[0;32mI (897) MAIN: Sample 30: GT=3, GT_gesture=SITTING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (917) MAIN: Sample 31: GT=1, GT_gesture=WALKING_UPSTAIRS, Predicted=1, Predicted_gesture=WALKING_UPSTAIRS[0m
+[0;32mI (937) MAIN: Sample 32: GT=3, GT_gesture=SITTING, Predicted=3, Predicted_gesture=SITTING[0m
+[0;32mI (957) MAIN: Sample 33: GT=0, GT_gesture=WALKING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (977) MAIN: Sample 34: GT=5, GT_gesture=LAYING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (997) MAIN: Sample 35: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (1017) MAIN: Sample 36: GT=2, GT_gesture=WALKING_DOWNSTAIRS, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (1037) MAIN: Sample 37: GT=1, GT_gesture=WALKING_UPSTAIRS, Predicted=1, Predicted_gesture=WALKING_UPSTAIRS[0m
+[0;32mI (1057) MAIN: Sample 38: GT=0, GT_gesture=WALKING, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (1067) MAIN: Sample 39: GT=1, GT_gesture=WALKING_UPSTAIRS, Predicted=5, Predicted_gesture=LAYING[0m
+[0;32mI (1087) MAIN: Sample 40: GT=0, GT_gesture=WALKING, Predicted=2, Predicted_gesture=WALKING_DOWNSTAIRS[0m
+[0;32mI (1087) MAIN: Final Accuracy: 43.90244%[0m
