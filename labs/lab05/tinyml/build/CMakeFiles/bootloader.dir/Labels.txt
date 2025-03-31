@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/CMakeFiles/bootloader
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/CMakeFiles/bootloader.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/CMakeFiles/bootloader-complete.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
