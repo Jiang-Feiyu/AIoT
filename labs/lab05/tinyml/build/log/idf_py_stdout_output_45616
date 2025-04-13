@@ -1,0 +1,17 @@
+[1/9] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/model_data.cc.obj
+[2/9] Performing build step for 'bootloader'
+[1/1] C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Bob\Desktop\COMP7310\labs\lab05\tinyml\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.4_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.4/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x2000 C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/bootloader/bootloader.bin"
+Bootloader binary size 0x53c0 bytes. 0xc40 bytes (13%) free.
+[3/9] No install step for 'bootloader'
+[4/9] Completed 'bootloader'
+[5/9] Linking C static library esp-idf\main\libmain.a
+[6/9] Generating ld/sections.ld
+[7/9] Linking CXX executable tinyml.elf
+FAILED: tinyml.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && C:\Espressif\tools\riscv32-esp-elf\esp-14.2.0_20241119\riscv32-esp-elf\bin\riscv32-esp-elf-g++.exe -march=rv32imac_zicsr_zifencei -nostartfiles -march=rv32imac_zicsr_zifencei --specs=nosys.specs    -Wl,--cref -Wl,--defsym=IDF_TARGET_ESP32C5=0 -Wl,--Map=C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/tinyml.map -Wl,--no-warn-rwx-segments -Wl,--orphan-handling=warn -fno-rtti -fno-lto -Wl,--gc-sections -Wl,--warn-common -T rom.api.ld -T esp32c5.peripherals.ld -T esp32c5.rom.ld -T esp32c5.rom.api.ld -T esp32c5.rom.rvfp.ld -T esp32c5.rom.wdt.ld -T esp32c5.rom.systimer.ld -T esp32c5.rom.version.ld -T esp32c5.rom.phy.ld -T esp32c5.rom.coexist.ld -T esp32c5.rom.net80211.ld -T esp32c5.rom.pp.ld -T esp32c5.rom.newlib.ld -T esp32c5.rom.newlib-normal.ld -T esp32c5.rom.heap.ld -T memory.ld -T sections.ld @CMakeFiles\tinyml.elf.rsp -o tinyml.elf && cd ."
+C:/Espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/../lib/gcc/riscv32-esp-elf/14.2.0/../../../../riscv32-esp-elf/bin/ld.exe: esp-idf/main/libmain.a(NeuralNetwork.cpp.obj): in function `tflite::MicroErrorReporter::MicroErrorReporter()':
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/managed_components/espressif__esp-tflite-micro/tensorflow/lite/micro/tflite_bridge/micro_error_reporter.h:26:(.text._ZN13NeuralNetworkC2Ev+0x2e): undefined reference to `imu_model_tflite'
+C:/Espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/../lib/gcc/riscv32-esp-elf/14.2.0/../../../../riscv32-esp-elf/bin/ld.exe: esp-idf/main/libmain.a(NeuralNetwork.cpp.obj): in function `tflite::GetModel(void const*)':
+C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/managed_components/espressif__esp-tflite-micro/tensorflow/lite/schema/schema_generated.h:25246:(.text._ZN13NeuralNetworkC2Ev+0x32): undefined reference to `imu_model_tflite'
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
