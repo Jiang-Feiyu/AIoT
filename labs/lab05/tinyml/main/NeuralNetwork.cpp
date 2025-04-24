@@ -7,9 +7,18 @@
 #include "tensorflow/lite/micro/micro_interpreter.h"
 #include <stdlib.h>
 
-const int kArenaSize = 20000;
+const int kArenaSize = 32000; 
 
-NeuralNetwork::NeuralNetwork() {
+NeuralNetwork::NeuralNetwork():
+    initialized(false),    // 要按照.h文件中声明的顺序
+    resolver(nullptr), 
+    error_reporter(nullptr),
+    model(nullptr),
+    interpreter(nullptr),
+    input(nullptr),
+    output(nullptr),
+    tensor_arena(nullptr)
+{
     error_reporter = new tflite::MicroErrorReporter();
 
     // Load the TFLite model from model_data.h
@@ -49,6 +58,12 @@ NeuralNetwork::NeuralNetwork() {
 
     input = interpreter->input(0);
     output = interpreter->output(0);
+
+    if (!input || !output) {
+        return;
+    }
+
+    initialized = true;
 }
 
 float *NeuralNetwork::getInputBuffer() {
@@ -62,4 +77,11 @@ float *NeuralNetwork::getOutputBuffer() {
 float NeuralNetwork::predict() {
     interpreter->Invoke();
     return output->data.f[0];
+}
+
+NeuralNetwork::~NeuralNetwork() {
+    delete interpreter;
+    delete resolver;
+    delete error_reporter;
+    free(tensor_arena);
 }

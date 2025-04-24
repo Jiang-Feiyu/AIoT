@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "tinyml",
-    "project_version":    "2660db3-dirty",
+    "project_version":    "6ae79c3-dirty",
     "project_path":       "C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.4",
     "build_dir":          "C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build",
@@ -1221,7 +1221,7 @@
             "type": "LIBRARY",
             "lib": "__idf_main",
             "reqs": [],
-            "priv_reqs": [ "spi_flash", "espressif__esp-tflite-micro" ],
+            "priv_reqs": [ "spi_flash", "espressif__esp-tflite-micro", "esp_timer" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp-tflite-micro" ],
             "file": "C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build/esp-idf/main/libmain.a",
@@ -2857,7 +2857,7 @@
             "dir": "C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/main",
             "lib": "__idf_main",
             "reqs": [],
-            "priv_reqs": [ "spi_flash", "espressif__esp-tflite-micro" ],
+            "priv_reqs": [ "spi_flash", "espressif__esp-tflite-micro", "esp_timer" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp-tflite-micro" ],
             "include_dirs": [ "." ]

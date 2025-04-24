@@ -15,6 +15,7 @@ struct TfLiteTensor;
 
 class NeuralNetwork {
 private:
+    bool initialized;
     tflite::MicroMutableOpResolver<10> *resolver;
     tflite::ErrorReporter *error_reporter;
     const tflite::Model *model;
@@ -28,8 +29,9 @@ public:
     float *getInputBuffer();
     // Returns a pointer to the output buffer (float array)
     float *getOutputBuffer();
-
+    bool isInitialized() { return initialized; }
     NeuralNetwork();
+    ~NeuralNetwork();  
     // Runs inference (output is read via getOutputBuffer)
     float predict();
 };

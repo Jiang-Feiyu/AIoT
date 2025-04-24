@@ -16,3 +16,6 @@ Aiot_tutorial/
 **/*.mp4
 
 UCI HAR Dataset
+
+labs/lab05/tinyml/build/log/
+labs/lab05/tinyml/build
