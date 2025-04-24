@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "tinyml",
-    "project_version":    "8a07181-dirty",
+    "project_version":    "644b671-dirty",
     "project_path":       "C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.4",
     "build_dir":          "C:/Users/Bob/Desktop/COMP7310/labs/lab05/tinyml/build",
